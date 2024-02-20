@@ -1,34 +1,30 @@
-import { createClient } from "contentful"
-import { useEffect } from 'react';
-//import './App.css'
+import { useQuery, gql } from '@apollo/client'
+import './App.css'
 
-const {
-  VITE_SPACE_ID,
-  VITE_ACCESS_TOKEN,
-  VITE_ENVIRONMENT,
-} = import.meta.env;
-
-const client = createClient({
-  accessToken: VITE_ACCESS_TOKEN,
-  space: VITE_SPACE_ID,
-  environment: VITE_ENVIRONMENT,
-})
+const GET_ACCORDIONDATA = gql`
+  query {
+    accordionCollection {
+      items {
+        internalName
+        title
+        accordionItemsCollection {
+          items {
+            name
+            text
+            sys {
+              id
+            } 
+          }
+        }
+      }
+    }
+  }
+`;
 
 const App = () => {
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await client.getEntries({
-        content_type: "accordion",
-        include: 2,
-      })
-
-      const data = response.items;
-      console.log(data);
-      return data;
-    }
-
-    fetchData();
-  }, []);
+  const { data } = useQuery(GET_ACCORDIONDATA);
+  
+  console.log(data)
 
   return (
     <div>
