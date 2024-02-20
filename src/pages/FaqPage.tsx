@@ -1,31 +1,11 @@
-import { useQuery, gql } from '@apollo/client'
-import Accordion from '../components/Accordion';
+import { useQuery } from '@apollo/client'
+import Accordion from '../components/Accordion'
+import { GET_FAQDATA } from './queries'
 import { AccordionData, AccordionFields, AccordionItem } from './types'
 
 const FaqPage = () => {
-// Define query for Contentful's Graphql API 
-  const GET_FAQDATA = gql`
-  query {
-    accordionCollection {
-      items {
-        internalName
-        title
-        accordionItemsCollection {
-          items {
-            name
-            text
-            sys {
-              id
-            } 
-          }
-        }
-      }
-    }
-  }
-`;
-
   // Fetch data using Apollo Client's useQuery hook (https://www.apollographql.com/docs/react/api/react/hooks/#usequery)
-  const { loading = true, error, data } = useQuery<AccordionData>(GET_FAQDATA);
+  const { loading = true, error, data } = useQuery<AccordionData>(GET_FAQDATA)
   
   const renderedData = (data: AccordionData) => {
     return data.accordionCollection.items.map((item: AccordionFields) => {
