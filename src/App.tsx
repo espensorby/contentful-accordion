@@ -1,5 +1,5 @@
 import FaqPage from './pages/FaqPage.tsx'
-import './App.css'
+import './app.scss'
 
 const App = () => {
 

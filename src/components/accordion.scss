@@ -1,0 +1,38 @@
+.accordion {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 12px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0;
+
+  li {
+    list-style: none;
+  }
+  
+  &-item {
+    border: 1px solid #5DB9F4;
+    border-radius: 8px;
+  }
+  
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    cursor: pointer;
+
+    h3 {
+      font-weight: 400;
+    }
+  }
+  
+  &-content {
+    display: flex;
+    padding: 16px;
+    padding-left: 32px;
+    color: #fff;
+    background-color: #5DB9F4;
+    text-align: left;
+  }
+}

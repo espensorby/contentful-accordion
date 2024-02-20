@@ -1,0 +1,46 @@
+.page-wrapper {
+  width: 100vw;
+
+  .top-banner-wrapper {
+    display: flex;
+    justify-content: center;
+    min-height: 100px;
+    margin-bottom: 80px;
+
+    padding: 24px;
+    color: #fff;
+    background-color: #041F35;
+
+    .top-banner {
+      position: relative;
+      display: flex;
+      align-items: center;
+    
+      .logo {
+        position: absolute;
+        left: -96px;
+        margin-right: 16px;
+
+        @media (max-width: 768px) {
+          position: static;
+        }
+      }
+    
+      h1 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 400;
+      }
+
+    }
+  }
+  main {
+    padding: 8px;
+
+    h2 {
+      margin-bottom: 48px;
+      font-size: 24px;
+      font-weight: 600;
+    }
+  }
+}

@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client'
 import Accordion from '../components/Accordion'
 import { GET_FAQDATA } from './queries'
 import { AccordionData, AccordionFields, AccordionItem } from './types'
+import './faqPage.scss'
 
 const FaqPage = () => {
   // Fetch data using Apollo Client's useQuery hook (https://www.apollographql.com/docs/react/api/react/hooks/#usequery)
@@ -19,10 +20,10 @@ const FaqPage = () => {
       });
 
       return (
-        <div key={item.internalName}>
+        <main key={item.internalName}>
           <h2>{item.title}</h2>
           <Accordion items={mappedToAccordion} />
-        </div>
+        </main>
       )
     })
   }
@@ -41,8 +42,15 @@ const FaqPage = () => {
   }
 
   return (
-    <div>
-      <h1>Contentful Accordion</h1>
+    <div className='page-wrapper'>
+      <nav className='top-banner-wrapper'>
+        <div className='top-banner'>
+          <a href="https://www.novacare.no" target='blank' className="logo" >
+            <img alt="Novacare logo" src="https://images.ctfassets.net/rag9hb99eki6/B7NOhJhx21UALURxyAqE0/b7bb00e4e9446ec0f0c4ffcedbb5e15c/novacarelogo.svg" width="80" height="80" />
+          </a>  
+          <h1>NOVACARE FAQ</h1>
+        </div>
+      </nav>
       {data && renderedData(data)}
     </div>
   )
