@@ -33,6 +33,7 @@ npm run test
 This project uses the following technologies:
 
 - React for building the user interface
+- TypeScript for type checking
 - Apollo Client for fetching data from the GraphQL API
 - Jest and React Testing Library for testing
 

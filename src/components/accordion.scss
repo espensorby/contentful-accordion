@@ -22,6 +22,11 @@
     padding: 16px;
     cursor: pointer;
 
+    &:hover {
+      background-color: #5DB9F4;
+      color: #fff;
+    }
+
     h3 {
       font-weight: 400;
     }
