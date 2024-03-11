@@ -1,6 +1,6 @@
 # Novacare FAQ App
 
-This is a simple FAQ application built with React, Typescript and Apollo Client. It fetches Novacare FAQ data from a GraphQL API and displays it in an accordion-style interface. This project is part of a job interview process for Novacare.
+This is a simple FAQ application built with React, Typescript, Vite and Apollo Client. It fetches Novacare FAQ data from a GraphQL API and displays it in an accordion-style interface. This project is part of a job interview process for Novacare.
 
 
 ## Installation
@@ -35,7 +35,7 @@ This project uses the following technologies:
 - React for building the user interface
 - TypeScript for type checking
 - Apollo Client for fetching data from the GraphQL API
-- Jest and React Testing Library for testing
+- Vitest and React Testing Library for testing
 
 
 ## License

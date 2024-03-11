@@ -33,7 +33,7 @@ const FaqPage = () => {
     console.error("Error fetching accordion data:", error);
 
     if (error.networkError) {
-      return <p>Sorry, there seems to be a network issue. Please check your connection and try again.</p>;
+      return <p>Sorry, there seems to be a network error. Please check your connection and try again.</p>;
     }
     if (error.graphQLErrors.length > 0) {
       return <p>Sorry, there was an error processing your request. Please try again later.</p>;

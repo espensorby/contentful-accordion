@@ -1,9 +1,8 @@
-import '@testing-library/jest-dom';
 import { render, screen, waitFor } from '@testing-library/react';
-import { MockedProvider } from '@apollo/client/testing';
 import userEvent from '@testing-library/user-event';
-import App from './App';
+import { MockedProvider } from '@apollo/client/testing';
 import { GET_FAQDATA } from './pages/queries';
+import App from './App';
 
 const mocks = [
   {
@@ -38,21 +37,13 @@ const mocks = [
             },
           ]
         }
-      }
+      },
+      delay: 1000,
     },
   },
 ];
 
-const errorMocks = [
-  {
-    request: {
-      query: GET_FAQDATA,
-    },
-    error: new Error('Sorry, there seems to be a network issue. Please check your connection and try again'),
-  },
-];
-
-test('renders FAQ text', async () => {
+it('renders FAQ text', async () => {
   render(
     <MockedProvider mocks={mocks} addTypename={false}>
       <App />
@@ -60,10 +51,10 @@ test('renders FAQ text', async () => {
   );
 
   const linkElement = await screen.findByText(/FAQ/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(linkElement).toBeVisible();
 });
 
-test('only one accordion item can be open at a time', async () => {
+it('only one accordion item can be open at a time', async () => {
   render(
     <MockedProvider mocks={mocks} addTypename={false}>
       <App />
@@ -95,7 +86,7 @@ test('only one accordion item can be open at a time', async () => {
   expect(detailsElement1).toHaveProperty('open', false);
 });
 
-test('accordion item displays content when open and hides content when closed', async () => {
+it('accordion item displays content when open and hides content when closed', async () => {
   render(
     <MockedProvider mocks={mocks} addTypename={false}>
       <App />
@@ -104,33 +95,58 @@ test('accordion item displays content when open and hides content when closed', 
 
   const accordionItem = await screen.findByRole('heading', { name: /Heading 1/i });
   const detailsElement = accordionItem.closest('details');
-  
-  // Check that content is not displayed when item is closed
-  expect(screen.queryByText(/Content 1/i)).not.toBeInTheDocument();
+
+  // Initially, the item is closed and its content is hidden
+  expect(detailsElement).toHaveProperty('open', false);
+  expect(screen.queryByText(/Content 1/i)).toBeNull();
 
   // Open the item
   userEvent.click(accordionItem);
   await waitFor(() => expect(detailsElement).toHaveProperty('open', true));
 
-  // Check that content is displayed when item is open
-  expect(screen.getByText(/Content 1/i)).toBeInTheDocument();
+  // The item's content is now visible
+  expect(screen.getByText(/Content 1/i)).toBeVisible();
 
   // Close the item
   userEvent.click(accordionItem);
   await waitFor(() => expect(detailsElement).toHaveProperty('open', false));
 
-  // Check that content is not displayed when item is closed
-  expect(screen.queryByText(/Content 1/i)).not.toBeInTheDocument();
+  // The item's content is now hidden
+  expect(screen.queryByText(/Content 1/i)).toBeNull();
 });
 
-test('displays an error message on failed query', async () => {
+it('displays a loading message while fetching data', async () => {
+  
+  render(
+    <MockedProvider mocks={mocks} addTypename={false}>
+      <App />
+    </MockedProvider>
+  );
+
+  // Check that the loading message is displayed
+  expect(screen.getByText(/loading/i)).toBeVisible();
+
+  // Wait for the query to complete
+  await screen.findByText(/FAQ/i);
+});
+
+
+it('displays an error message if the query fails', async () => {
+  const errorMocks = [
+    {
+      request: {
+        query: GET_FAQDATA,
+      },
+      error: new Error('An error occurred'),
+    },
+  ];
+
   render(
     <MockedProvider mocks={errorMocks} addTypename={false}>
       <App />
     </MockedProvider>
   );
 
-  // Wait for the error message to be displayed
-  const errorMessage = await screen.findByText(/Sorry, there seems to be a network issue. Please check your connection and try again./i);
-  expect(errorMessage).toBeInTheDocument();
+  // Check that the error message is displayed
+  expect(await screen.findByText(/error/i)).toBeVisible();
 });

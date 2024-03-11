@@ -10,9 +10,9 @@ const {
 // Go to {CONTENTFUL_GRAPHQL_ENDPOINT}/explore?access_token={ACCESS_TOKEN} to explore the API
 const CONTENTFUL_GRAPHQL_ENDPOINT = `https://graphql.contentful.com/content/v1/spaces/${VITE_SPACE_ID}/environments/${VITE_ENVIRONMENT}?access_token=${VITE_ACCESS_TOKEN}`;
 
-// Config for retries on failed requests
 const httpLink = new HttpLink({ uri: CONTENTFUL_GRAPHQL_ENDPOINT });
 
+// Config for retries on failed requests
 const retryLink = new RetryLink({
   delay: {
     initial: 300,
